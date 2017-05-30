@@ -1,0 +1,33 @@
+cat /etc/os-release // Get OS version
+
+PRETTY_NAME="Raspbian GNU/Linux 8 (jessie)"
+NAME="Raspbian GNU/Linux"
+VERSION_ID="8"
+VERSION="8 (jessie)"
+ID=raspbian
+ID_LIKE=debian
+HOME_URL="http://www.raspbian.org/"
+SUPPORT_URL="http://www.raspbian.org/RaspbianForums"
+BUG_REPORT_URL="http://www.raspbian.org/RaspbianBugs"
+
+sudo nano /boot/cmdline.txt
+#dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
+
+//Disabling the Console
+For Raspberry Pi 3’s the command is similar but referencing /dev/ttyS0:
+$ sudo systemctl stop serial-getty@ttyS0.service
+$ sudo systemctl disable serial-getty@ttyS0.service
+
+
+sudo nano /boot/config.txt
+# Uncomment if you want to disable the blutooth(good)
+dtoverlay=pi3-disable-bt
+
+sudo apt-get install minicom
+
+sudo minicom -D /dev/ttyAMA0 -b 115200 // WORKS
+
+
+//sudo systemctl disable hciuart if any of the above works, try this
+
