@@ -36,7 +36,7 @@ def web():
     #sim800_responde(expected_answer = "OK")
     sim800_responde("OK", 15)
 
-
+    # activate cellular function
     phone.write('AT+CFUN=1\r')
     sim800_responde("Call Ready", 45)
 
